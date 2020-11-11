@@ -7,7 +7,7 @@ from django.dispatch import receiver
 from PIL import Image
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
     institution = models.CharField(max_length=64, blank=True)
     grade = models.CharField(max_length=2, blank=True)
 

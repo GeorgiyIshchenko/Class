@@ -8,9 +8,11 @@ app_name="my_class"
 urlpatterns = [
 	path('',homepage),
 
-	path('profiles/sign_up',sign_up),
-	path('profiles/sign_in',sign_in),
-	path('profiles/<int:pk>',profile),
+	path('sign_up',sign_up),
+	path('sign_in',sign_in),
+	path('im',profile),
+	path('edit',edit_profile),
+	path('logout', logout)
 
 ]
 

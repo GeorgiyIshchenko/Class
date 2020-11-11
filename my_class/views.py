@@ -11,6 +11,8 @@ from django.utils import timezone, dateformat
 from .forms import *
 from .models import *
 
+
+
 def homepage(request):
 	return render(request,'homepage.html')
 
@@ -20,13 +22,12 @@ def sign_up(request):
 		profile_form = ProfileForm(request.POST)
 		password_form = PasswordForm(request.POST)
 		if user_form.is_valid() and profile_form.is_valid() and password_form.is_valid():
-			user = user_form.save(commit=False)
-			profile_user = User.objects.create_user(username = user.email,
-				email=user.email,
-				first_name=user.first_name,
-				last_name=user.last_name,
-				password=password_form.cleaned_data.get("password"),
+			profile_user = User.objects.create_user(username = user_form.cleaned_data['email'],
+				email=user_form.cleaned_data['email'],
+				first_name=user_form.cleaned_data['first_name'],
+				last_name=user_form.cleaned_data['last_name'],
 				)
+			profile_user.set_password(password_form.cleaned_data.get("password"))
 			profile_user.save()
 			profile = profile_form.save(commit=False)
 			profile.user = profile_user
@@ -58,8 +59,28 @@ def sign_in(request):
 		'sign_in_form':sign_in_form,
 		})
 
-def profile(request,pk):
-	profile = Profile.objects.get(pk=pk)
+def profile(request):
+	profile = Profile.objects.get(user = request.user)
 	return render(request, 'profile.html', {
 		'profile' : profile
 		})
+
+def edit_profile(request):
+	if request.method == 'POST':
+		user_form = UserForm(request.POST, instance=request.user)
+		profile_form = ProfileForm(request.POST, instance=request.user.profile)
+		if user_form.is_valid() and profile_form.is_valid():
+			user_form.save()
+			profile_form.save()
+			return redirect('/im')
+	else:
+		user_form = UserForm(instance=request.user)
+		profile_form = ProfileForm(instance=request.user.profile)
+	return render(request,'edit_profile.html',{
+		'user_form' : user_form,
+		'profile_form' : profile_form
+		})
+
+def logout(request):
+	auth.logout(request)
+	return redirect("/sign_in")
