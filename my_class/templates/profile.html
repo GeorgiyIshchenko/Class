@@ -26,20 +26,36 @@
 		            <small class="text-muted">Учбеное заведение</small>
 		          </div>
 		        </li>
+		        <li class="list-group-item d-flex justify-content-between lh-condensed">
+		          <div>
+		            <h6 class="my-0">{{profile.city}}</h6>
+		            <small class="text-muted">Город</small>
+		          </div>
+		        </li>
 		    </ul>
 	    	<a class="btn btn-lg btn-block mb-4 border-bottom" href='edit' type="submit" 
 	    	style="background-color: #e3f2fd;">Редактировать</a>
 		     <h4 class="d-flex justify-content-between align-items-center mb-3">
 		       	<span class="text-muted">Ваши курсы</span>
-		        <span class="badge badge-secondary badge-pill">Кол-во</span>
+		        <div class="dropdown">
+				  <span class="badge badge-secondary badge-pill" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Добавить курс
+				  </span>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				    <a class="dropdown-item" href="/classes/join">Присоединиться к курсу</a>
+				    <a class="dropdown-item" href="/classes/create">Создать курс</a>
+				  </div>
+				</div>
 		    </h4>
 		    <ul class="list-group mb-3">
+		    	{% for class in profile.classes.set %}
 		        <li class="list-group-item d-flex justify-content-between lh-condensed">
 		          <div>
-		            <h6 class="my-0">Имя курса</h6>
-		            <small class="text-muted">Имя преподавателя</small>
+		            <h6 class="my-0">{{ class.name }</h6>
+		            <small class="text-muted">{{ class.teacher }}</small>
 		          </div>
 		        </li>
+		        {% endfor %}
 		    </ul>
 
 	    </div>   

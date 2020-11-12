@@ -61,6 +61,7 @@ def sign_in(request):
 
 def profile(request):
 	profile = Profile.objects.get(user = request.user)
+	print(profile.classes)
 	return render(request, 'profile.html', {
 		'profile' : profile
 		})
@@ -76,11 +77,41 @@ def edit_profile(request):
 	else:
 		user_form = UserForm(instance=request.user)
 		profile_form = ProfileForm(instance=request.user.profile)
-	return render(request,'edit_profile.html',{
+	return render(request,'profile_edit.html',{
 		'user_form' : user_form,
 		'profile_form' : profile_form
 		})
 
+
 def logout(request):
 	auth.logout(request)
 	return redirect("/sign_in")
+
+
+def class_view(request,name,pk):
+	pass
+
+
+def class_join(request):
+	pass
+
+
+def class_create(request):
+	if request.method=="POST":
+		class_create_form = ClassCreate(request.POST)
+		if class_create_form.is_valid():
+			current_class = class_create_form.save(commit=False)
+			current_class.teacher = request.user.profile 
+			current_class.save()
+			request.user.profile.classes.add(current_class)
+			return redirect('/im')
+	else:
+		class_create_form = ClassCreate()
+	return render(request,'class_create.html',{
+		'class_create_form':class_create_form,
+		})
+
+
+def class_leave(request):
+	pass
+

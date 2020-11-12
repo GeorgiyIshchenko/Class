@@ -12,21 +12,36 @@ class UserForm(forms.ModelForm):
 		model = User
 		fields = ('first_name','last_name','email',)
 
+
 class ProfileForm(forms.ModelForm):
 	institution = forms.CharField(label='Укажите свое учебное заведение', 
 		widget=forms.TextInput(attrs={'placeholder': 'Учебное заведение'}))
 	grade = forms.CharField(label='Укажите свой класс (курс)', 
 		widget=forms.TextInput(attrs={'placeholder': 'Класс (курс)'}))
+	city = forms.CharField(label='Укажите свой город', 
+		widget=forms.TextInput(attrs={'placeholder': 'Город'}))
 
 	class Meta:
 		model = Profile
-		fields = ('institution','grade',)
+		fields = ('city','institution','grade',)
+
 
 class PasswordForm(forms.Form):
 	password = forms.CharField(label='Придумайте пароль', 
 		widget=forms.PasswordInput())
 
+
 class SignInForm(forms.Form):
 	email = forms.CharField(label='Введите e-mail', widget=forms.TextInput(attrs={'placeholder': 'E-mail'}))
 	password = forms.CharField(label='Введите пароль', 
 		widget=forms.PasswordInput())
+
+
+class ClassCreate(forms.ModelForm):
+	name = forms.CharField(label='Укажите название класса', 
+		widget=forms.TextInput(attrs={'placeholder': 'Класс'}))
+
+	class Meta:
+		model = Class
+		fields = ('name',)
+
