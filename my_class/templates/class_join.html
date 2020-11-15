@@ -4,12 +4,12 @@
     {% load crispy_forms_tags %}
     	<div class="container mt-5 py-5" style="width: 25rem;">
         {% load crispy_forms_tags %}
-        <form class="" method="POST" action="/classes/create">
+        <form class="" method="POST" action="/classes/join">
           {% csrf_token %}
-          <h1 class="h3 mb-3 font-weight-normal text-center">Создание класса</h1>
-          {{ class_create_form|crispy }}
+          <h1 class="h3 mb-3 font-weight-normal text-center">Присоединиться к классу</h1>
+          {{ class_join_form|crispy }}
           <button class="btn btn-lg btn-block border-bottom" type="submit"
-          style="background-color: #e3f2fd;">Создать</button>
+          style="background-color: #e3f2fd;">Присоединиться</button>
         </form>
       </div>
   </body>

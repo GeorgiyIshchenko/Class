@@ -93,7 +93,13 @@ def class_view(request,name,pk):
 
 
 def class_join(request):
-	pass
+	if request.method=="POST":
+		pass
+	else:
+		class_join_form = ClassJoin()
+	return render(request,'class_join.html',{
+		'class_join_form':class_join_form,
+		})
 
 
 def class_create(request):

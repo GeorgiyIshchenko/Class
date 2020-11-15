@@ -45,3 +45,7 @@ class ClassCreate(forms.ModelForm):
 		model = Class
 		fields = ('name',)
 
+
+class ClassJoin(forms.Form):
+	code = forms.CharField(label='Введите персональный код класса', widget=forms.TextInput(attrs={'placeholder': 'Код класса'}))
+
