@@ -32,7 +32,7 @@ def sign_up(request):
 			profile = profile_form.save(commit=False)
 			profile.user = profile_user
 			profile.save()
-			return redirect('/')
+			return redirect('/sign_in')
 	else:
 		user_form = UserForm()
 		password_form = PasswordForm()

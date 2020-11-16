@@ -16,7 +16,7 @@
     	<div class="container mt-5 py-5" style="width: 25rem;">
         {% load crispy_forms_tags %}
         {% block content %}
-        <form class="" method="POST" action="sign_up">
+        <form class="" method="POST" action="">
           {% csrf_token %}
           <h1 class="h3 mb-3 font-weight-normal text-center">Регистрация</h1>
           {{ user_form|crispy }}
