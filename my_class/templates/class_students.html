@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="background-color: #95D2F1;">
+    <nav class="container navbar navbar-expand-lg navbar-light">
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link" href="feed">Лента</a>
+            <a class="nav-link" href="tasks">Задания</a>
+            <a class="nav-link" href="students">Ученики</a>
+          </div>
+        </div>
+    </nav>
+</div>
+<div class="jumbotron jumbotron-fluid" style="background-color: #CAC6F5;">
+  <div class="container">
+    <h1 class="display-5">{{class.name}}</h1>
+    <p class="lead">{{class.teacher.first_name}} {{class.teacher.last_name}}</p>
+  </div>
+</div>
+<div class="container mt-5 mb-5">
+            <table class="table table-striped">
+          <thead>
+            <tr>
+              
+              <th scope="col">Фамилия</th>
+              <th scope="col">Имя</th>
+              <th scope="col">Последний вход на курс</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for student in students %}
+            <tr>
+              
+              <td>{{student.last_name}}</td>
+              <td>{{student.first_name}}</td>
+              <td>{{student.last_login|date:'d-m-Y'}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        </div>
+{% endblock %}

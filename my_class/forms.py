@@ -47,5 +47,6 @@ class ClassCreate(forms.ModelForm):
 
 
 class ClassJoin(forms.Form):
-	code = forms.CharField(label='Введите персональный код класса', widget=forms.TextInput(attrs={'placeholder': 'Код класса'}))
+	pin = forms.CharField(max_length = 6, label='Введите персональный код класса', 
+		widget=forms.TextInput(attrs={'placeholder': 'Код класса'}))
 

@@ -12,10 +12,11 @@ urlpatterns = [
 	path('im/',profile),
 	path('edit/',edit_profile),
 	path('logout/', logout),
-	path('classes/<str:name>-<int:pk>/', class_view),
+	path('classes/<str:name>-<int:pk>/feed', class_view),
 	path('classes/join/', class_join),
 	path('classes/create', class_create),
 	path('classes/leave', class_leave),
+	path('classes/<str:name>-<int:pk>/students', class_students),
 ]
 
 if settings.DEBUG:

@@ -8,17 +8,18 @@ from PIL import Image
 
 class Class(models.Model):
     name = models.CharField(max_length=32)
-    teacher = models.ForeignKey('Profile', on_delete=models.CASCADE, null=True, blank=True)
+    teacher = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
 
-
-    def __str__(self):
-        return self.name+str(self.pk)
 
     def pin(self):
-        return self.pk
+        return (self.pk^612345)
+
+    def __str__(self):
+        return self.name+"-"+str(self.pk^612345)
 
     def get_absolute_url(self):
         return self.name+"-"+str(self.pk)
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
@@ -46,4 +47,7 @@ class ProfileClass(models.Model):
     date_join = models.DateTimeField(auto_now_add=True) 
     current_class = models.ForeignKey(Class,on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.profile.user.username+'_has_joined_'+self.current_class.name
 

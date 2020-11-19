@@ -89,12 +89,38 @@ def logout(request):
 
 
 def class_view(request,name,pk):
-	pass
+	current_class = Class.objects.get(pk=pk)
+	return render(request,'class_view.html',
+		{
+		'class':current_class,
+		})
 
+
+def class_students(request,name,pk):
+	current_class = Class.objects.get(pk=pk)
+	students = Profile.objects.filter(classes=current_class)
+	return render(request,'class_students.html',
+		{
+		'class': current_class,
+		'students':students.order_by('last_name'),
+		})
+
+
+def decode(pin):
+	return int(pin)^612345
 
 def class_join(request):
 	if request.method=="POST":
-		pass
+		class_join_form = ClassJoin(request.POST)
+		if class_join_form.is_valid():
+			pin = class_join_form.cleaned_data['pin']
+			print(decode(pin))
+			try:
+				current_class = Class.objects.get(pk=decode(pin))
+				request.user.profile.classes.add(current_class)
+				return redirect('/im')
+			except Class.DoesNotExist:
+				print("Неверный pin")
 	else:
 		class_join_form = ClassJoin()
 	return render(request,'class_join.html',{
@@ -107,7 +133,7 @@ def class_create(request):
 		class_create_form = ClassCreate(request.POST)
 		if class_create_form.is_valid():
 			current_class = class_create_form.save(commit=False)
-			current_class.teacher = request.user.profile 
+			current_class.teacher = request.user
 			current_class.save()
 			request.user.profile.classes.add(current_class)
 			return redirect('/im')

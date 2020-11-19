@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="background-color: #95D2F1;">
+    <nav class="container navbar navbar-expand-lg navbar-light">
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link" href="feed">Лента</a>
+            <a class="nav-link" href="tasks">Задания</a>
+            <a class="nav-link" href="students">Ученики</a>
+          </div>
+        </div>
+    </nav>
+</div>
+<div class="jumbotron jumbotron-fluid" style="background-color: #CAC6F5;">
+  <div class="container">
+    <h1 class="display-5">{{class.name}}</h1>
+    <p class="lead">{{class.teacher.first_name}} {{class.teacher.last_name}}</p>
+  </div>
+</div>
+
+{% endblock %}
