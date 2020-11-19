@@ -32,9 +32,9 @@
             {% for student in students %}
             <tr>
               
-              <td>{{student.last_name}}</td>
-              <td>{{student.first_name}}</td>
-              <td>{{student.last_login|date:'d-m-Y'}}</td>
+              <td>{{student.user.last_name}}</td>
+              <td>{{student.user.first_name}}</td>
+              <td>{{student.user.date_joined|date:'d-m-Y'}}</td>
             </tr>
             {% endfor %}
           </tbody>

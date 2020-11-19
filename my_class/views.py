@@ -102,7 +102,7 @@ def class_students(request,name,pk):
 	return render(request,'class_students.html',
 		{
 		'class': current_class,
-		'students':students.order_by('last_name'),
+		'students':students,
 		})
 
 
